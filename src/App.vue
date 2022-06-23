@@ -7,15 +7,15 @@
        <div class="weather-wrap" v-if="typeof weather.main != 'undefined'">
           <div class="location-box">
             <div class="location">{{weather.name}}, {{weather.sys.country}}</div>
-            <div class="date">Null</div>
+            <div class="date">{{dateBuilder()}}</div>
           </div>
           <div class="weather-box">
               <div class="temperature">{{ Math.round(weather.main.temp)}}°C</div>
-              <div ckass="weather">{{weather.weather[0].main}}</div>
+              <div class="weather">{{weather.weather[0].main}}</div>
           </div>
        </div>
        <div class="weather-none" v-else>
-        <p>Nothing to se here</p>
+        <p>Nothing to see here</p>
         Try type something in search bar!
        </div>
     </main>
@@ -47,6 +47,18 @@ export default {
     },
     setResults (results) {
        this.weather = results;
+    },
+    dateBuilder () {
+      let d = new Date();
+      let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+      let day = days[d.getDay()]
+      let date = d.getDate();
+      let month = months[d.getMonth()];
+      let year = d.getFullYear();
+
+      return `${day} ${date} ${month} ${year}`
     }
   }
 
@@ -119,7 +131,7 @@ main {
   padding:  10px 25px;
 }
 .weather-box .temperature{
-  font-size: 102px;
+  font-size: 112px;
   padding:  10px 15px;
   text-shadow: 3px 7px rgba(0,0,0,0.25);
   background-color: rgba(255,255,255,0.25);
@@ -128,8 +140,10 @@ main {
   box-shadow: 3px 7px rgba(0,0,0,0.25);
 }
 .weather-box .weather{
+  font-size: 62px;
   text-shadow: 3px 7px rgba(0,0,0,0.25);
 }
+
 .weather-none{
   color: aliceblue;
   padding: 20px;
