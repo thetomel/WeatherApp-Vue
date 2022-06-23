@@ -1,5 +1,5 @@
 <template>
-  <div id='app'>
+  <div id='app' :class="typeof weather.main != 'undefined' && weather.main.temp < 15 ? 'cold' : ''">
     <main>
       <div class="search-box">
         <input type="text" class="search-bar" placeholder="Tell me the place..." v-model="query" @keypress="fetchWeather">
@@ -79,7 +79,9 @@ body{
   background-size: cover;
   transition: 0.4s;
   position: bottom; 
-  
+}
+#app.cold{
+  background-image: linear-gradient(to bottom, rgba(11, 54, 123, 0.594), rgba(2, 15, 59, 0.434));
 }
 main {
   min-height: 100vh;
